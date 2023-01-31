@@ -31,12 +31,16 @@ function createColorCardsMarkup(galleryItems) {
 }
 function onImgContainerClick(e) {
   e.preventDefault();
-  const isImgEl = e.target;
+  const isImgEl = e.target.classList.contains("gallery__image");
 
-  const imgEl = isImgEl.getAttribute("data-source");
+  if (!isImgEl) {
+    return;
+  }
+
+  const imgDataSourceEl = e.target.getAttribute("data-source");
 
   const instance = basicLightbox.create(`
-    <img src="${imgEl}" width="800" height="600">
+    <img src="${imgDataSourceEl}" width="800" height="600">
     `);
 
   instance.show();
