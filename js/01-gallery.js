@@ -44,5 +44,10 @@ function onImgContainerClick(e) {
     `);
 
   instance.show();
-  // instance.close()
+
+  imgContainer.addEventListener("keydown", (e) => {
+    if (e.code === "Escape") {
+      instance.close();
+    }
+  });
 }
