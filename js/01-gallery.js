@@ -45,9 +45,17 @@ function onImgContainerClick(e) {
 
   instance.show();
 
-  imgContainer.addEventListener("keydown", (e) => {
+  imgContainer.addEventListener("keydown", closeModalWindowEscBtn);
+
+  function closeModalWindowEscBtn(e) {
     if (e.code === "Escape") {
-      instance.close();
+      instance.close(() =>
+        imgContainer.removeEventListener("keydown", closeModalWindowEscBtn)
+      );
     }
-  });
+  }
+
+  if (!instance.visible()) {
+    imgContainer.removeEventListener("keydown", closeModalWindowEscBtn);
+  }
 }
