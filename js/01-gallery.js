@@ -39,10 +39,16 @@ function onImgContainerClick(e) {
 
   const imgDataSourceEl = e.target.getAttribute("data-source");
 
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img src="${imgDataSourceEl}" width="800" height="600">
-    `);
-
+    `,
+    {
+      onClose: () => {
+        imgContainer.removeEventListener("keydown", closeModalWindowEscBtn);
+      },
+    }
+  );
   instance.show();
 
   imgContainer.addEventListener("keydown", closeModalWindowEscBtn);
@@ -53,9 +59,5 @@ function onImgContainerClick(e) {
         imgContainer.removeEventListener("keydown", closeModalWindowEscBtn)
       );
     }
-  }
-
-  if (!instance.visible()) {
-    imgContainer.removeEventListener("keydown", closeModalWindowEscBtn);
   }
 }
